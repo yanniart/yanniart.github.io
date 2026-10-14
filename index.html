@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yanni · 책과 숲 사이</title>
+  <meta name="description" content="독서와 자연을 사랑하는 Yanni의 개인 홈페이지">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <style>
+    :root {
+      --bg: #f6f3ec;
+      --surface: #fffdf8;
+      --ink: #2b2a26;
+      --muted: #6e6a5f;
+      --line: #e3ddd0;
+      --green: #4f6b4a;
+      --green-soft: #e4ebdf;
+      --accent: #b5683b;
+      --shadow: 0 1px 2px rgba(40, 35, 20, .06), 0 8px 24px rgba(40, 35, 20, .06);
+      --serif: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", Georgia, serif;
+      --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    }
+    :root[data-theme="dark"] {
+      --bg: #171a16;
+      --surface: #1f231e;
+      --ink: #e8e5dc;
+      --muted: #a29e92;
+      --line: #333a31;
+      --green: #9cbb92;
+      --green-soft: #283126;
+      --accent: #e0956a;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.7;
+      transition: background .3s, color .3s;
+    }
+    a { color: var(--green); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+    /* 내비게이션 */
+    header.nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .logo { font-family: var(--serif); font-weight: 700; text-decoration: none; color: var(--ink); }
+    nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+    nav a:hover, nav a.active { color: var(--green); }
+    .theme-btn {
+      border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+      width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+    }
+
+    /* 히어로 */
+    .hero { position: relative; overflow: hidden; padding: 96px 0 80px; }
+    #leaves { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .hero .wrap { position: relative; }
+    .eyebrow { color: var(--green); font-weight: 600; letter-spacing: .08em; font-size: .85rem; margin: 0 0 12px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.3; margin: 0 0 20px; }
+    .hero h1 em { font-style: normal; color: var(--green); }
+    .hero h1 .big { font-size: 1.25em; }
+    .hero p.lead { color: var(--muted); font-size: 1.1rem; max-width: 560px; margin: 0 0 28px; }
+    .btn {
+      display: inline-block; padding: 10px 20px; border-radius: 999px;
+      background: var(--green); color: var(--bg); text-decoration: none; font-weight: 600;
+    }
+    .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--green); margin-left: 8px; }
+
+    /* 섹션 공통 */
+    section { padding: 72px 0; }
+    section + section { border-top: 1px solid var(--line); }
+    h2 { font-family: var(--serif); font-size: 1.8rem; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 32px; }
+
+    /* 소개 */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .facts li {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; display: flex; gap: 12px; align-items: center;
+    }
+    .facts span.ico { font-size: 1.4rem; }
+
+    /* 오늘의 문장 */
+    .quote-card {
+      background: var(--green-soft); border-radius: 16px; padding: 40px 32px; text-align: center;
+    }
+    .quote-card blockquote {
+      font-family: var(--serif); font-size: clamp(1.15rem, 3vw, 1.5rem); margin: 0 0 16px;
+      transition: opacity .4s;
+    }
+    .quote-card cite { color: var(--muted); font-style: normal; font-size: .95rem; }
+    .quote-card button {
+      margin-top: 20px; border: 1px solid var(--green); background: transparent; color: var(--green);
+      padding: 8px 18px; border-radius: 999px; cursor: pointer; font: inherit;
+    }
+
+    /* 책장 */
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; align-items: center; }
+    .chip {
+      border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+      padding: 6px 14px; border-radius: 999px; cursor: pointer; font: inherit; font-size: .9rem;
+    }
+    .chip.on { background: var(--green); border-color: var(--green); color: var(--bg); }
+    .search {
+      margin-left: auto; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+      background: var(--surface); color: var(--ink); font: inherit; min-width: 180px;
+    }
+    .books { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .book {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+      padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
+      border-left: 6px solid var(--spine, var(--green));
+    }
+    .book h3 { font-family: var(--serif); font-size: 1.05rem; margin: 0; }
+    .book .author { color: var(--muted); font-size: .9rem; margin: 0; }
+    .book .note { font-size: .92rem; margin: 6px 0 0; }
+    .book .meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; }
+    .tag { font-size: .78rem; color: var(--green); background: var(--green-soft); padding: 2px 10px; border-radius: 999px; }
+    .stars { color: var(--accent); letter-spacing: 1px; font-size: .9rem; }
+    .empty { color: var(--muted); grid-column: 1 / -1; text-align: center; padding: 24px; }
+
+    /* 자연 일지 */
+    .journal { display: grid; gap: 16px; }
+    .entry {
+      display: grid; grid-template-columns: 64px 1fr; gap: 16px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+    }
+    .entry .emoji { font-size: 2.2rem; text-align: center; line-height: 1; padding-top: 4px; }
+    .entry h3 { margin: 0; font-size: 1.05rem; }
+    .entry time { color: var(--muted); font-size: .85rem; }
+    .entry p { margin: 6px 0 0; }
+    .entry button.del {
+      float: right; border: none; background: none; color: var(--muted); cursor: pointer; font-size: .85rem;
+    }
+    form.add {
+      display: grid; grid-template-columns: 80px 1fr 1fr auto; gap: 8px; margin-bottom: 24px;
+    }
+    form.add input, form.add select {
+      padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+      background: var(--surface); color: var(--ink); font: inherit;
+    }
+    form.add button {
+      padding: 10px 18px; border-radius: 10px; border: none; background: var(--green);
+      color: var(--bg); font: inherit; font-weight: 600; cursor: pointer;
+    }
+
+    /* 연락 */
+    .contact { text-align: center; }
+    .links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 32px 0 48px; }
+
+    /* 스크롤 등장 효과 */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .6s; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    @media (max-width: 720px) {
+      nav ul { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      form.add { grid-template-columns: 70px 1fr; }
+      form.add input[name="note"], form.add button { grid-column: 1 / -1; }
+      .search { margin-left: 0; width: 100%; }
+      .hero { padding: 64px 0 56px; }
+      .btn.ghost { margin-left: 0; margin-top: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">🌿 Yanni</a>
+    <nav>
+      <ul>
+        <li><a href="#about">소개</a></li>
+        <li><a href="#books">책장</a></li>
+        <li><a href="#nature">자연 일지</a></li>
+        <li><a href="#contact">연락</a></li>
+      </ul>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="테마 전환">🌙</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="leaves" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow">BOOKS &amp; NATURE</p>
+      <h1><span class="big">책</span> 한 권과 <span class="big">숲길</span> 하나,<br><em>그 사이에서</em> 살아갑니다.</h1>
+      <p class="lead">안녕하세요, Yanni입니다. 천천히 읽고, 오래 걷고, 계절이 바뀌는 순간을 기록하는 것을 좋아합니다.</p>
+      <a class="btn" href="#books">책장 둘러보기</a>
+      <a class="btn ghost" href="#nature">자연 일지</a>
+    </div>
+  </section>
+
+  <section id="about" class="reveal">
+    <div class="wrap about-grid">
+      <div>
+        <h2>소개</h2>
+        <p class="sub">조용한 것들을 좋아하는 사람</p>
+        <p>주말 아침이면 커피 한 잔과 책을 들고 가까운 공원이나 산으로 향합니다. 나무 그늘 아래에서 읽는 문장은 왠지 더 오래 마음에 남아요.</p>
+        <p>이 공간에는 제가 읽은 책과, 걸으며 만난 자연의 장면들을 차곡차곡 모아두려 합니다.</p>
+      </div>
+      <ul class="facts">
+        <li><span class="ico">📚</span><span>올해 읽은 책 <strong id="bookCount">0</strong>권</span></li>
+        <li><span class="ico">🥾</span><span>좋아하는 것: 새벽 산책, 숲길, 비 온 뒤의 흙냄새</span></li>
+        <li><span class="ico">🌳</span><span>좋아하는 계절: <strong id="season"></strong></span></li>
+        <li><span class="ico">☕</span><span>독서 친구: 따뜻한 차 한 잔</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <div class="quote-card">
+        <blockquote id="quoteText"></blockquote>
+        <cite id="quoteBy"></cite><br>
+        <button id="quoteBtn">다른 문장 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="books" class="reveal">
+    <div class="wrap">
+      <h2>책장</h2>
+      <p class="sub">마음에 남은 책들</p>
+      <div class="toolbar" id="filters">
+        <input class="search" id="search" type="search" placeholder="제목·저자 검색">
+      </div>
+      <div class="books" id="bookList"></div>
+    </div>
+  </section>
+
+  <section id="nature" class="reveal">
+    <div class="wrap">
+      <h2>자연 일지</h2>
+      <p class="sub">걷다가 만난 작은 장면들 — 직접 기록을 남겨보세요 (이 브라우저에 저장돼요)</p>
+      <form class="add" id="addForm">
+        <select name="emoji" aria-label="아이콘">
+          <option>🌿</option><option>🍂</option><option>🌸</option><option>🌲</option>
+          <option>🌧️</option><option>🌅</option><option>🐦</option><option>❄️</option>
+        </select>
+        <input name="title" placeholder="어디서, 무엇을?" required maxlength="40">
+        <input name="note" placeholder="한 줄 메모" maxlength="120">
+        <button type="submit">기록하기</button>
+      </form>
+      <div class="journal" id="journal"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal contact">
+    <div class="wrap">
+      <h2>연락</h2>
+      <p class="sub">책 추천이나 함께 걷기 좋은 길을 알려주세요.</p>
+      <div class="links">
+        <a class="btn" href="https://github.com/yanniart">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> Yanni · 책과 숲 사이에서</footer>
+
+<script>
+  // ===== 데이터 (여기를 수정해서 내 책으로 바꾸세요) =====
+  const BOOKS = [
+    { title: "월든", author: "헨리 데이비드 소로", genre: "에세이", rating: 5, color: "#4f6b4a",
+      note: "숲속 오두막에서의 2년. 단순하게 사는 삶에 대해 다시 생각하게 해준 책." },
+    { title: "침묵의 봄", author: "레이첼 카슨", genre: "자연과학", rating: 5, color: "#7a8f5c",
+      note: "새소리가 사라진 봄을 상상해본 적이 있나요? 환경 운동의 시작점." },
+    { title: "어린 왕자", author: "앙투안 드 생텍쥐페리", genre: "소설", rating: 4, color: "#c49a4a",
+      note: "읽을 때마다 다른 장면이 마음에 남는 책." },
+    { title: "나무를 심은 사람", author: "장 지오노", genre: "소설", rating: 5, color: "#6b8a6e",
+      note: "한 사람의 묵묵한 손길이 황무지를 숲으로 바꾸는 이야기." },
+    { title: "모래 군의 열두 달", author: "알도 레오폴드", genre: "에세이", rating: 4, color: "#a07a52",
+      note: "계절마다 땅이 들려주는 이야기. 토지 윤리라는 말을 처음 배웠다." },
+    { title: "종의 기원", author: "찰스 다윈", genre: "자연과학", rating: 4, color: "#5d7380",
+      note: "어렵지만 천천히 읽을수록 세상이 다르게 보인다." },
+  ];
+
+  const QUOTES = [
+    { text: "나는 신중하게 살고 싶어서 숲으로 갔다.", by: "헨리 데이비드 소로, 『월든』" },
+    { text: "자연의 속도를 따르라. 그 비밀은 인내다.", by: "랄프 왈도 에머슨" },
+    { text: "숲속을 걸을 때마다 사람은 찾던 것보다 더 많은 것을 얻는다.", by: "존 뮤어" },
+    { text: "좋은 책을 읽는 것은 지난 세기의 가장 훌륭한 사람들과 대화하는 것이다.", by: "르네 데카르트" },
+    { text: "자연을 깊이 들여다보라. 그러면 모든 것을 더 잘 이해하게 될 것이다.", by: "알베르트 아인슈타인" },
+  ];
+
+  const DEFAULT_ENTRIES = [
+    { emoji: "🍂", title: "동네 공원 은행나무길", note: "하룻밤 사이에 노랗게 물들었다. 발밑이 바스락바스락.", date: "2026-10-12" },
+    { emoji: "🌧️", title: "비 그친 오후의 뒷산", note: "흙냄새와 젖은 솔잎 향. 이끼가 유난히 초록빛이었다.", date: "2026-09-28" },
+  ];
+
+  // ===== 유틸 =====
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const store = {
+    get(k, fallback) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  };
+
+  // ===== 테마 =====
+  const themeBtn = $("#themeBtn");
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+  }
+  applyTheme(store.get("theme", matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+  themeBtn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next); store.set("theme", next);
+  });
+
+  // ===== 계절 & 기본 정보 =====
+  const month = new Date().getMonth() + 1;
+  const season = month >= 3 && month <= 5 ? "봄 🌸" : month <= 8 && month >= 6 ? "여름 🌿" : month >= 9 && month <= 11 ? "가을 🍂" : "겨울 ❄️";
+  $("#season").textContent = "지금, " + season;
+  $("#year").textContent = new Date().getFullYear();
+  $("#bookCount").textContent = BOOKS.length;
+
+  // ===== 오늘의 문장 =====
+  let qi = new Date().getDate() % QUOTES.length;
+  function showQuote() {
+    const q = QUOTES[qi], bq = $("#quoteText");
+    bq.style.opacity = 0;
+    setTimeout(() => { bq.textContent = "“" + q.text + "”"; $("#quoteBy").textContent = "— " + q.by; bq.style.opacity = 1; }, 200);
+  }
+  $("#quoteBtn").addEventListener("click", () => { qi = (qi + 1) % QUOTES.length; showQuote(); });
+  showQuote();
+
+  // ===== 책장 =====
+  let genre = "전체", query = "";
+  const filters = $("#filters");
+  ["전체", ...new Set(BOOKS.map((b) => b.genre))].forEach((g) => {
+    const b = document.createElement("button");
+    b.className = "chip" + (g === genre ? " on" : "");
+    b.textContent = g;
+    b.addEventListener("click", () => {
+      genre = g;
+      filters.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c === b));
+      renderBooks();
+    });
+    filters.insertBefore(b, $("#search"));
+  });
+  $("#search").addEventListener("input", (e) => { query = e.target.value.trim().toLowerCase(); renderBooks(); });
+
+  function renderBooks() {
+    const list = BOOKS.filter((b) =>
+      (genre === "전체" || b.genre === genre) &&
+      (!query || (b.title + b.author).toLowerCase().includes(query)));
+    $("#bookList").innerHTML = list.length ? list.map((b) => `
+      <article class="book" style="--spine:${esc(b.color)}">
+        <h3>${esc(b.title)}</h3>
+        <p class="author">${esc(b.author)}</p>
+        <p class="note">${esc(b.note)}</p>
+        <div class="meta">
+          <span class="tag">${esc(b.genre)}</span>
+          <span class="stars" aria-label="별점 ${b.rating}점">${"★".repeat(b.rating)}${"☆".repeat(5 - b.rating)}</span>
+        </div>
+      </article>`).join("") : `<p class="empty">찾는 책이 없어요 📖</p>`;
+  }
+  renderBooks();
+
+  // ===== 자연 일지 =====
+  let entries = store.get("journal", DEFAULT_ENTRIES);
+  function renderJournal() {
+    $("#journal").innerHTML = entries.map((e, i) => `
+      <div class="entry">
+        <div class="emoji">${esc(e.emoji)}</div>
+        <div>
+          <button class="del" data-i="${i}" aria-label="삭제">삭제</button>
+          <h3>${esc(e.title)}</h3>
+          <time>${esc(e.date)}</time>
+          ${e.note ? `<p>${esc(e.note)}</p>` : ""}
+        </div>
+      </div>`).join("");
+  }
+  $("#journal").addEventListener("click", (ev) => {
+    const btn = ev.target.closest(".del");
+    if (!btn) return;
+    entries.splice(+btn.dataset.i, 1);
+    store.set("journal", entries); renderJournal();
+  });
+  $("#addForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const f = new FormData(ev.target);
+    entries.unshift({
+      emoji: f.get("emoji"), title: f.get("title").trim(), note: f.get("note").trim(),
+      date: new Date().toISOString().slice(0, 10),
+    });
+    store.set("journal", entries); renderJournal();
+    ev.target.reset();
+  });
+  renderJournal();
+
+  // ===== 스크롤 등장 & 내비 활성화 =====
+  const io = new IntersectionObserver((items) => {
+    items.forEach((it) => {
+      if (!it.isIntersecting) return;
+      it.target.classList.add("show");
+      document.querySelectorAll("nav a").forEach((a) => a.classList.toggle("active", a.hash === "#" + it.target.id));
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // ===== 떨어지는 잎사귀 (계절에 따라 바뀜) =====
+  (function leaves() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cv = $("#leaves"), ctx = cv.getContext("2d");
+    const glyph = { "봄": "🌸", "여름": "🍃", "가을": "🍂", "겨울": "❄️" }[season.split(" ")[0]];
+    let W, H, parts = [];
+    function resize() {
+      const r = devicePixelRatio || 1;
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * r; cv.height = H * r; ctx.setTransform(r, 0, 0, r, 0, 0);
+    }
+    function spawn(initial) {
+      return { x: Math.random() * W, y: initial ? Math.random() * H : -20, s: 12 + Math.random() * 12,
+               v: .3 + Math.random() * .6, sw: Math.random() * Math.PI * 2, rot: Math.random() * 6, a: .25 + Math.random() * .35 };
+    }
+    resize(); addEventListener("resize", resize);
+    parts = Array.from({ length: Math.min(18, Math.floor(W / 50)) }, () => spawn(true));
+    (function tick() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of parts) {
+        p.y += p.v; p.sw += .02; p.x += Math.sin(p.sw) * .5; p.rot += .01;
+        if (p.y > H + 20) Object.assign(p, spawn(false));
+        ctx.save(); ctx.globalAlpha = p.a; ctx.translate(p.x, p.y); ctx.rotate(Math.sin(p.rot));
+        ctx.font = p.s + "px serif"; ctx.fillText(glyph, 0, 0); ctx.restore();
+      }
+      requestAnimationFrame(tick);
+    })();
+  })();
+</script>
+</body>
+</html>
