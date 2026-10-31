@@ -1,0 +1,48 @@
+/* =========================================
+   about.html 전용 (Canva 2페이지 · About)
+   ========================================= */
+
+/* 휴대폰 */
+.deco-sparkles { width: 44px; align-self: flex-start; margin-bottom: -40px; }
+.deco-wave { width: 180px; margin-top: -16px; }
+.deco-window { display: none; }
+
+/* 휴대폰에서는 창 모양을 선으로 그려요 */
+.about-list {
+  width: 100%;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 44px 16px 16px 34px;
+  position: relative;
+}
+.about-list::before {
+  content: "–  ▢  ×";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 2px 10px;
+  text-align: right;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  border-bottom: 2px solid var(--accent);
+}
+.about-list li { padding: 3px 0; }
+
+/* PC/태블릿: Canva 좌표 */
+@media (min-width: 768px) {
+  .deco-sparkles { --x: 60.9;  --y: 134.4; --w: 84;  margin: 0; }
+  .about-title   { --x: 76.8;  --y: 307.5; --w: 455; --fs: 53.33; }
+  .deco-wave     { --x: 258.5; --y: 426.4; --w: 273.2; margin: 0; }
+  .deco-window   { --x: 613.4; --y: 76.8;  --w: 691.3; display: block; }
+
+  .about-list {
+    --x: 663.4; --y: 153.2; --w: 591.2; --fs: 26.67;
+    border: 0;
+    border-radius: 0;
+    padding: 0 0 0 1.2em;
+    line-height: 1.5;
+  }
+  .about-list::before { content: none; }
+  .about-list li { padding: 0; }
+}

@@ -1,0 +1,52 @@
+/* =========================================
+   skill.html 전용 (Canva 4페이지 · Skills & Certifications)
+   ========================================= */
+
+/* 휴대폰 */
+.deco-dashes { width: 32px; order: -1; align-self: flex-end; margin: 0 24px -28px 0; }
+
+/* 박스: Canva 손그림 테두리
+   휴대폰에서는 테두리를 위(점 3개 막대)·아래·양옆으로 잘라 붙여서
+   모양은 그대로 두고 높이만 내용에 맞춰 늘어나게 해요. */
+.skill-box {
+  width: 100%;
+  max-width: 280px;
+  border: solid transparent;
+  border-width: 38px 17px 25px;
+  border-image: url("../images/deco/box-frame.svg") 9% 6% 6% fill / 38px 17px 25px stretch;
+  padding: 12px 24px 16px;
+  text-align: center;
+}
+.skill-box h2 {
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+}
+.skill-box ul {
+  list-style: none;
+  margin-top: .4em;
+  line-height: 1.4;
+}
+.skill-box li.gap { margin-top: 1.4em; }
+
+/* PC/태블릿: Canva 좌표 */
+@media (min-width: 768px) {
+  .skill-title  { --x: 345.3;  --y: 45.9; --w: 675.3; --fs: 53.33; }
+  .deco-dashes  { --x: 1013.9; --y: 19.1; --w: 48.4; margin: 0; order: 0; }
+
+  .skill-box {
+    --y: 178.2; --w: 369.4; --fs: 26.67;
+    max-width: none;
+    /* PC는 Canva 비율 그대로 테두리를 통째로 깔아요 */
+    aspect-ratio: 369.4 / 553.6;
+    border: 0;
+    border-image: none;
+    background: url("../images/deco/box-frame.svg") no-repeat center / 100% 100%;
+    /* 테두리 안쪽 여백도 Canva 숫자 그대로 (위 66.7, 양옆 45.9) */
+    padding: calc(66.7 * 100cqw / 1366) calc(45.9 * 100cqw / 1366) 0;
+  }
+  .box-1 { --x: 76.8; }
+  .box-2 { --x: 498.2; }
+  .box-3 { --x: 919.9; }
+}

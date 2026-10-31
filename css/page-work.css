@@ -1,0 +1,41 @@
+/* =========================================
+   work.html 전용 (Canva 3페이지 · Work & Experience)
+   ========================================= */
+
+/* 휴대폰 */
+.deco-underline { width: 160px; margin-top: -14px; }
+
+.work-card { width: 100%; }
+.work-card img {
+  width: 100%;
+  aspect-ratio: 350 / 245;
+  object-fit: cover;
+  border: 1px solid var(--ink);
+  border-radius: 16% / 22.9%;   /* Canva 사진 틀의 둥근 모서리 */
+}
+.work-card h2 {
+  margin-top: 16px;
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+}
+.work-card p {
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+.work-card h2 + p { margin-top: .8em; }
+
+/* PC/태블릿: Canva 좌표 */
+@media (min-width: 768px) {
+  .work-title     { --x: 411.3; --y: 45.1;  --w: 543.4; --fs: 53.33; }
+  .deco-underline { --x: 508.4; --y: 108.5; --w: 214.2; margin: 0; }
+
+  .work-card { --y: 194.6; --w: 350; --fs: 26.67; }
+  .card-1 { --x: 76.8; }
+  .card-2 { --x: 508.4; }
+  .card-3 { --x: 939.2; }
+
+  .work-card h2 { margin-top: .84em; }
+  .work-card h2 + p { margin-top: .8em; }
+}

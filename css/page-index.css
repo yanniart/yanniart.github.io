@@ -1,0 +1,40 @@
+/* =========================================
+   index.html 전용 (Canva 1페이지 · Home)
+   ========================================= */
+
+/* 휴대폰 */
+.slide { justify-content: center; }
+
+.top-nav {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -.02em;
+  color: var(--nav-ink);
+}
+.top-nav a { text-decoration: none; transition: color .3s; }
+.top-nav a:hover { color: var(--accent); }
+
+.deco-arrow { width: 64px; align-self: center; margin-left: 40px; }
+.deco-dashes { display: none; }
+.hero-sub { font-size: 18px; text-align: center; }
+.deco-scribble { width: 150px; margin-top: -12px; margin-left: 80px; }
+
+/* PC/태블릿: Canva 좌표 */
+@media (min-width: 768px) {
+  .top-nav {
+    --x: 496; --y: 76.8; --w: 374; --fs: 26.67;
+    right: auto;
+    line-height: 1;
+  }
+  .deco-arrow    { --x: 686;   --y: 245.2; --w: 85;   margin: 0; }
+  .hero-title    { --x: 150;   --y: 311.3; --w: 1066; --fs: 66.67; line-height: 1; }
+  .deco-dashes   { --x: 137.1; --y: 429.8; --w: 48.4; display: block; }
+  .hero-sub      { --x: 283;   --y: 467.2; --w: 800;   --fs: 33.33; line-height: 1.4; white-space: nowrap; }
+  .deco-scribble { --x: 728.5; --y: 516.5; --w: 189.2; margin: 0; }
+}

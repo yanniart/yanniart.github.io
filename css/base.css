@@ -1,0 +1,132 @@
+/* =========================================
+   공통 스타일 (모든 페이지)
+   - 휴대폰: 요소를 세로로 쌓아요.
+   - PC/태블릿(768px 이상): Canva 페이지(1366×768)와 같은 배치로,
+     화면 크기에 맞춰 통째로 늘었다 줄었다 해요.
+   ========================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  word-break: keep-all;          /* 한글 단어 중간에서 줄바꿈 막기 */
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- 페이지 틀 (휴대폰 기준) ---------- */
+.slide {
+  position: relative;
+  max-width: 560px;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 80px var(--gutter) 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ---------- 큰 제목 ---------- */
+.title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(28px, 8vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ---------- 오른쪽 위 H / A / W / S / C 메뉴 ----------
+   글꼴·색은 index 상단 메뉴와 같아요. 지금 페이지 글자는 포인트 색으로 보여요. */
+.mini-nav {
+  position: absolute;
+  top: 16px;
+  right: var(--gutter);
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: 14px;             /* 휴대폰: 누르기 쉽게 조금 크게 */
+  letter-spacing: -.02em;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+.mini-nav a {
+  display: inline-block;
+  padding: 8px 4px;            /* 손가락으로 누르기 쉬운 영역 */
+  text-decoration: none;
+  transition: color .3s;
+}
+.mini-nav a:hover,
+.mini-nav a[aria-current="page"] { color: var(--accent); }
+
+/* ---------- 장식 그림 ---------- */
+.deco { pointer-events: none; user-select: none; }
+
+/* ---------- PC/태블릿: Canva 배치 그대로 ----------
+   .abs 요소에 Canva 좌표(px)를 적어 두면 그 자리에 놓여요.
+   --x: 왼쪽, --y: 위쪽, --w: 너비, --fs: 글자 크기 (모두 Canva 숫자 그대로) */
+@media (min-width: 768px) {
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    display: block;
+    width: min(100vw, calc(100vh * 1366 / 768));
+    max-width: none;
+    min-height: 0;
+    aspect-ratio: 1366 / 768;
+    padding: 0;
+    container-type: inline-size;
+  }
+
+  .slide .abs {
+    position: absolute;
+    left: calc(var(--x) * 100% / 1366);
+    top: calc(var(--y) * 100% / 768);
+    width: calc(var(--w) * 100% / 1366);
+    font-size: calc(var(--fs, 26.67) * 100cqw / 1366);
+  }
+
+  /* index 메뉴(26.67)의 0.5배 크기 */
+  .slide .mini-nav {
+    --x: 1040; --y: 20; --w: 300; --fs: 13.33;
+    right: auto;
+  }
+  .mini-nav a { padding: 0; }
+}
+
+/* ---------- 나타나는 효과 (js/main.js와 함께 동작) ---------- */
+.js .reveal {
+  opacity: 0;
+  translate: 0 16px;
+  transition: opacity var(--duration) var(--ease), translate var(--duration) var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { transition: none; }
+}

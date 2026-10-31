@@ -1,0 +1,26 @@
+/* =========================================
+   디자인 값 모음 (모든 페이지 공통)
+   색상·글꼴은 여기만 바꾸면 사이트 전체에 적용돼요.
+   ========================================= */
+:root {
+  /* 색상 (Canva와 같은 값) */
+  --bg: #fafafa;          /* 페이지 배경 */
+  --ink: #000000;         /* 기본 글자 */
+  --accent: #ff5055;      /* 포인트 색 (장식, 테두리) */
+  --nav-ink: #9cb960;     /* 첫 화면 상단 메뉴 글자 */
+
+  /* 글꼴
+     맨 앞은 Canva에서 쓴 원래 글꼴이에요. 컴퓨터에 설치돼 있으면 그 글꼴로,
+     없으면 뒤에 있는 비슷한 무료 웹 글꼴로 보여요. */
+  --font-title: "TT Firs Neue", "Syne", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "TD백제", "TDBaekje", "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-nav: "Arsenica Antiqua", "Playfair Display", Georgia, serif;
+  --font-mono: "Courier Prime", "Courier New", monospace;
+
+  /* 간격 */
+  --gutter: 16px;         /* 휴대폰 화면 양옆 여백 */
+
+  /* 움직임 */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --duration: .8s;
+}
