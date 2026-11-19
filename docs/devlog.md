@@ -11,7 +11,6 @@
 4. [ ] 빈 화면 캡처 다시 찍기: 비밀 일기장·스마트가계부·하루 칼로리 → PNG를 `images/`에 넣으면 같은 방식으로 WebP 교체
 5. [ ] 시니톡 완성되면 임시 SVG(`images/work/sinitalk.svg`)를 실제 화면으로 교체
 6. [ ] VISUAL Netlify 사이트 이름 바꾸면 `index.html` 링크 수정
-- 정리 가능: 로컬 브랜치 `feature/work-projects`는 main에 합쳐져서 지워도 됨
 - 작업 방식: 새 작업은 브랜치에서, main 반영·푸시는 요청 시에만
 
 ## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects` → main 반영·푸시 완료, 724fe19)
