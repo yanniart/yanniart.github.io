@@ -21,7 +21,7 @@
 - PC 1366×768, 모바일 375×812에서 섹션 5개 모두 표시, 가로 스크롤 없음, 메뉴 강조 정상
 
 ### 다음 작업
-현재 상태: 한 페이지 구조 작업 완료, 브랜치 `feature/one-page-scroll`에 **커밋 전** (13개 파일 수정 + `docs/` 새로 생김)
+현재 상태: 한 페이지 구조 작업 완료, 브랜치 `feature/one-page-scroll`에 커밋 완료 (1b95836), main 반영 전
 
 - [ ] 실제 브라우저에서 메뉴 클릭 → 부드러운 스크롤 직접 확인
   - 실행: `python -m http.server 5500` → `http://localhost:5500/` (`.claude/launch.json`에 설정 있음)
@@ -29,8 +29,8 @@
 - [ ] 태블릿 폭(768 / 900 / 1024px)에서 Skill 섹션 점선 장식이 메뉴와 겹치는지 확인
   - 겹치면 `css/page-skill.css` 36번째 줄 `.deco-dashes`의 `--x`(지금 985)를 더 줄이기
   - 참고: 헤드리스 Chrome 자동 스크린샷은 Claude Code 권한 설정에서 막혀 있음 → 직접 확인하거나 권한 허용 필요
-- [ ] `about.html`, `work.html`, `skill.html`, `contact.html` 삭제 (사용자가 직접)
-- [ ] 확인 끝나면 브랜치에 커밋 (요청 시)
+- [x] `about.html`, `work.html`, `skill.html`, `contact.html` 삭제 (사용자가 직접)
+- [x] 브랜치에 커밋 (1b95836)
 - [ ] main 반영·배포 (요청 시)
 
 ## 2026-11-19 · 안 쓰는 파일 검토
