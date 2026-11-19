@@ -1,41 +1,165 @@
 /* =========================================
-   #work 섹션 전용 (Canva 3페이지 · Work & Experience)
+   #work 섹션 전용 (Work & Experience · 작품 카드)
+   - 탭 2개(웹·모바일 앱 / 앱스크립트) + 좌우로 넘기는 카드 한 줄
+   - 탭·◀▶ 버튼 동작은 js/main.js
    ========================================= */
 
-/* 휴대폰 */
+/* ---------- 휴대폰 ---------- */
 :where(#work) .deco-underline { width: 180px; margin: -16px 0 0 160px; } /* 원래 크기, 제목 오른쪽 아래 (글자와 안 겹치게) */
 
-:where(#work) .work-card { width: 100%; }
+/* 탭 줄 */
+:where(#work) .work-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+:where(#work) .work-tabs { display: flex; gap: 6px; }
+:where(#work) .work-tabs button,
+:where(#work) .work-arrows button {
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+}
+:where(#work) .work-tabs button {
+  padding: .35em .9em;
+  border-radius: 999px;
+  font-size: .9em;
+  white-space: nowrap;
+}
+:where(#work) .work-tabs button span { font-family: var(--font-mono); }
+:where(#work) .work-tabs button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+:where(#work) .work-panels { width: 100%; position: relative; }
+
+/* ◀▶ 버튼: 카드 줄 왼쪽·오른쪽 끝에 걸쳐 놓고, 마우스를 올렸을 때만 보여요.
+   (키보드로 들어왔을 때도 보임. 맨 앞/맨 끝이면 그쪽 버튼은 숨김)
+   주의: :focus-within을 쓰면 버튼을 클릭한 뒤 마우스를 치워도 계속 보여서 :has(:focus-visible)를 써요. */
+:where(#work) .work-arrows button {
+  position: absolute;
+  z-index: 2;
+  top: 25%;                    /* 휴대폰 폭에서 대략 사진 가운데 */
+  translate: 0 -50%;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: .8em;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+:where(#work) .work-prev { left: 0;  translate: -50% -50%; }
+:where(#work) .work-next { right: 0; translate: 50% -50%; }
+:where(#work) .work-panels:hover .work-arrows button,
+:where(#work) .work-panels:has(:focus-visible) .work-arrows button { opacity: 1; pointer-events: auto; } /* 키보드(Tab)로 들어왔을 때만. 마우스 클릭 후 남은 포커스로는 안 보임 */
+:where(#work) .work-panels .work-arrows button:disabled { opacity: 0; visibility: hidden; pointer-events: none; } /* 맨 앞/끝: 마우스를 올려도 안 보임 */
+:where(#work) .work-arrows button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* 터치 화면은 손가락으로 넘기니까 버튼을 아예 숨겨요 */
+@media (hover: none) {
+  :where(#work) .work-arrows { display: none; }
+}
+
+/* 카드 한 줄 (옆으로 스크롤) */
+:where(#work) .work-track {
+  --gap: 16px;
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 2px 14px;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+:where(#work) .work-track[hidden] { display: none; }
+
+:where(#work) .work-card {
+  flex: 0 0 80%;               /* 휴대폰: 한 장 + 옆 카드가 살짝 보이게 */
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
 :where(#work) .work-card img {
   width: 100%;
-  aspect-ratio: 350 / 245;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   border: 1px solid var(--ink);
-  border-radius: 16% / 22.9%;   /* Canva 사진 틀의 둥근 모서리 */
+  border-radius: 12px;
 }
 :where(#work) .work-card h3 {
-  margin-top: 16px;
-  font-size: 1.2em;
+  margin-top: .7em;
+  font-size: 1.15em;
   font-weight: 700;
   letter-spacing: -.03em;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 :where(#work) .work-card p {
-  margin-top: 1.4em;
+  margin-top: .4em;
+  line-height: 1.4;
+  font-size: .9em;
+}
+:where(#work) .work-tags {
+  margin-top: .7em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3em;
+  list-style: none;
+  font-size: .72em;
+}
+:where(#work) .work-tags li {
+  padding: .15em .6em;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+}
+:where(#work) .work-thumb { position: relative; }
+
+/* 개발중 / 링크: 사진 오른쪽 아래에 겹쳐 놓기 */
+:where(#work) .work-link,
+:where(#work) .work-badge {
+  position: absolute;
+  right: .6em;
+  bottom: .6em;
+  padding: .2em .8em;
+  border-radius: 999px;
+  font-size: .85em;
   line-height: 1.4;
 }
-:where(#work) .work-card h3 + p { margin-top: .8em; }
+:where(#work) .work-link {
+  background: var(--bg);
+  border: 1px solid var(--ink);
+  text-decoration: none;
+}
+:where(#work) .work-link:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+:where(#work) .work-badge { background: var(--accent); color: #fff; }
 
-/* PC/태블릿: Canva 좌표 */
+@media (prefers-reduced-motion: reduce) {
+  :where(#work) .work-track { scroll-behavior: auto; }
+}
+
+/* ---------- PC/태블릿: 슬라이드(1366×768) 좌표 ---------- */
 @media (min-width: 768px) {
   :where(#work) .work-title     { --x: 411.3; --y: 45.1;  --w: 543.4; --fs: 53.33; }
-  :where(#work) .deco-underline { --x: 753.4; --y: 94;    --w: 273.2; margin: 0; } /* 원래 크기, 'ENCE' 밑 가운데, 글자·카드와 안 겹치게 (원래 508.4/108.5/214.2) */
+  :where(#work) .deco-underline { --x: 753.4; --y: 94;    --w: 273.2; margin: 0; } /* 원래 크기, 'ENCE' 밑 가운데, 글자와 안 겹치게 */
 
-  :where(#work) .work-card { --y: 194.6; --w: 350; --fs: 26.67; }
-  :where(#work) .card-1 { --x: 76.8; }
-  :where(#work) .card-2 { --x: 508.4; }
-  :where(#work) .card-3 { --x: 939.2; }
+  :where(#work) .work-bar    { --x: 76.8; --y: 168; --w: 1212.4; --fs: 20; }
+  :where(#work) .work-panels { --x: 76.8; --y: 228; --w: 1212.4; --fs: 20; }
 
-  :where(#work) .work-card h3 { margin-top: .84em; }
-  :where(#work) .work-card h3 + p { margin-top: .8em; }
+  /* 카드 너비 360 (슬라이드 기준) → 한 화면에 3장 + 4번째가 살짝 보임 */
+  :where(#work) .work-track { --gap: calc(24 * 100cqw / 1366); padding-bottom: calc(18 * 100cqw / 1366); }
+  :where(#work) .work-card  { flex-basis: calc(360 * 100cqw / 1366); }
+  /* 버튼 높이 = 사진 가운데 (사진 높이 360×10/16 = 225의 절반 + 위 여백 4px) */
+  :where(#work) .work-arrows button { top: calc(112.5 * 100cqw / 1366 + 4px); }
 }
