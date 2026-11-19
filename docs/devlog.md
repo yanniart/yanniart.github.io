@@ -1,6 +1,6 @@
 # 개발 기록
 
-## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects`, 커밋 전)
+## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects`, 커밋 4530b4a · main 반영 전)
 
 ### 결정 사항
 - Work & Experience = 경력 카드 3개 → **만든 작품 카드 14개** (노션 「작업웹앱 정리」 기반)
@@ -28,11 +28,23 @@
   - 375px: 탭 2개가 한 줄에 들어가는지, 손가락으로 카드 넘기기
   - PC: 카드 줄에 마우스 올리면 ◀▶가 좌우 끝에 나타나는지, 버튼 높이가 사진 가운데인지
   - About 경력 한 줄 위치(`page-about.css` `.about-career` y 380)
-- [ ] 진짜 사진으로 교체: `images/work/`에 jpg(16:10, 장당 100KB 안팎) 넣고 `index.html`의 `src`·`alt`에서 `.svg`·"(임시 이미지)" 바꾸기
-  - 배포 웹앱 5개는 사이트 캡처 가능, 앱스크립트 8개·시니톡은 직접 캡처 필요
+- [x] 배포 웹앱 5개 진짜 화면으로 교체 (2026-11-19): `images/work/{senior-play,classboardkit,visual,mytask,digit}.webp`
+  - 규격: 1280×800(16:10) WebP, 장당 20~60KB. `index.html`은 `width="1280" height="800"`, alt에서 "(임시 이미지)" 제거
+  - 캡처: 헤드리스 Chrome + CDP(Node 내장 WebSocket, 라이브러리 없음). ClassBoardKit은 「퀴즈·게임」 템플릿,
+    MyTask는 예시 할 일 6개(2개 완료), Digit은 숫자 7을 그린 상태, VISUAL은 Netlify 배지 제거 후 캡처
+  - 해당 임시 SVG 5개는 아직 `images/work/`에 남아 있음 (안 씀 → 지워도 됨)
+- [x] 앱스크립트 8개 교체 (2026-11-19): 사용자 전체화면 캡처(1920×1080) → 브라우저 상단·작업표시줄 잘라
+  16:10(원본 x224 y122 폭1456) → `images/work/<이름>.webp` 1280×800. 날씨는 API 키 칸 흐림 처리
+  - 원본 PNG는 `images/work/<이름>.png`로 이름 바꿔 둠 (페이지에서 안 씀, 약 1.6MB)
+- 시니어놀이터(모임 찾기 화면)·ClassBoardKit(모둠 활동 템플릿)은 사용자 캡처로 다시 교체. ClassBoardKit은 화면 전체 폭을 써서
+  자르지 않고 폭 맞춤 + 위아래를 앱 배경색으로 채움. 원본은 `images/work/{senior-play,classboardkit}.png`
+- 시니톡은 임시 SVG 유지 (사용자 결정)
+- [ ] 다시 찍으면 좋은 것 (빈 화면): 비밀 일기장(분석 탭 전부 "기록 없음"), 스마트가계부(차트 "내역 없음"·잔액 마이너스),
+  하루 칼로리(목표 비어 있음). 새로 찍은 PNG를 `images/` 에 넣으면 같은 방식으로 교체
+- [x] 안 쓰는 파일 삭제: 임시 SVG 13개(시니톡 제외), 원본 PNG 10개(커밋 전이라 저장소엔 없음), `images/work-{it,edu,cafe}.jpg`
 - [ ] VISUAL 주소(`cute-daffodil-76cbcb.netlify.app`) 사이트 이름 바꾸면 링크 수정
 - [ ] 안 쓰게 된 사진 `images/work-it.jpg`, `work-edu.jpg`, `work-cafe.jpg` 지울지 결정
-- [ ] 확인 후 커밋 → main 반영은 요청 시에만
+- [ ] 브라우저 확인 후 main 반영·푸시 (요청 시에만)
 
 ## 2026-11-19 · 한 페이지 스크롤 구조로 변경 (브랜치 `feature/one-page-scroll` → main 반영)
 
