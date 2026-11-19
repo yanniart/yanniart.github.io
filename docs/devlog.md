@@ -1,6 +1,6 @@
 # 개발 기록
 
-## 2026-11-19 · 한 페이지 스크롤 구조로 변경 (브랜치 `feature/one-page-scroll`)
+## 2026-11-19 · 한 페이지 스크롤 구조로 변경 (브랜치 `feature/one-page-scroll` → main 반영)
 
 ### 결정 사항
 - 5개 페이지를 `index.html` 한 장에 섹션으로 합침: `#home` → `#about` → `#work` → `#skill` → `#contact`
@@ -23,18 +23,21 @@
 - PC 1366×768, 모바일 375×812에서 섹션 5개 모두 표시, 가로 스크롤 없음, 메뉴 강조 정상
 
 ### 다음 작업
-현재 상태: 한 페이지 구조 작업 완료, 브랜치 `feature/one-page-scroll`에 커밋 완료 (1b95836), main 반영 전
+현재 상태: main에 반영·푸시 완료 (GitHub Pages로 배포됨). 남은 건 화면 확인과 미세 조정.
 
 - [ ] 실제 브라우저에서 메뉴 클릭 → 부드러운 스크롤 직접 확인
   - 실행: `python -m http.server 5500` → `http://localhost:5500/` (`.claude/launch.json`에 설정 있음)
   - 부드러운 스크롤은 `css/base.css`의 `html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }`
 - [ ] 태블릿 폭(768 / 900 / 1024px)에서 Skill 섹션 점선 장식이 메뉴와 겹치는지 확인
   - Home 메뉴 추가로 메뉴가 왼쪽으로 더 길어져서 겹칠 가능성 커짐
-  - 겹치면 `css/page-skill.css` 36번째 줄 `.deco-dashes`의 `--x`(지금 985)를 더 줄이기
-  - 참고: 헤드리스 Chrome 자동 스크린샷은 Claude Code 권한 설정에서 막혀 있음 → 직접 확인하거나 권한 허용 필요
-- [x] `about.html`, `work.html`, `skill.html`, `contact.html` 삭제 (사용자가 직접)
-- [x] 브랜치에 커밋 (1b95836)
-- [ ] main 반영·배포 (요청 시)
+  - 겹치면 `css/page-skill.css`의 `.deco-dashes` `--x`(지금 985)를 더 줄이기
+- [ ] About 반짝이, Work 물결선 위치를 화면 보고 미세 조정 (좌표가 글자 폭 추정값)
+- 참고: 헤드리스 Chrome 자동 스크린샷은 Claude Code 권한 설정에서 막혀 있음 → 직접 확인하거나 권한 허용 필요
+- 작업 방식: 새 작업은 브랜치에서 하고, main 반영·푸시는 요청 시에만
+
+### 완료
+- 예전 주소 HTML 4개 삭제, 브랜치 커밋, main 반영·푸시 (2026-11-19)
+- 원격 main에 있던 "경력 10년 → 11년" 수정(`work.html`)은 파일이 삭제돼서 `index.html` Work 카드에 옮겨 반영
 
 ## 2026-11-19 · 안 쓰는 파일 검토
 
