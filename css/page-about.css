@@ -3,8 +3,7 @@
    ========================================= */
 
 /* 휴대폰 */
-:where(#about) .deco-sparkles { width: 44px; align-self: flex-start; margin-bottom: -40px; }
-:where(#about) .deco-wave { width: 180px; margin-top: -16px; }
+:where(#about) .deco-sparkles { width: 44px; margin: 0 128px -40px 0; } /* 제목 글자 왼쪽 위 모서리에 붙게 */
 :where(#about) .deco-window { display: none; }
 
 /* 휴대폰에서는 창 모양을 선으로 그려요 */
@@ -31,9 +30,9 @@
 
 /* PC/태블릿: Canva 좌표 */
 @media (min-width: 768px) {
-  :where(#about) .deco-sparkles { --x: 60.9;  --y: 134.4; --w: 84;  margin: 0; }
+  /* 반짝이를 제목 글자 왼쪽 위에 붙임 (원래 60.9/134.4) */
+  :where(#about) .deco-sparkles { --x: 128;   --y: 128;   --w: 84;  margin: 0; }
   :where(#about) .about-title   { --x: 76.8;  --y: 307.5; --w: 455; --fs: 53.33; }
-  :where(#about) .deco-wave     { --x: 258.5; --y: 426.4; --w: 273.2; margin: 0; }
   :where(#about) .deco-window   { --x: 613.4; --y: 76.8;  --w: 691.3; display: block; }
 
   :where(#about) .about-list {

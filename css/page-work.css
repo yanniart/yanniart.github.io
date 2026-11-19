@@ -3,7 +3,7 @@
    ========================================= */
 
 /* 휴대폰 */
-:where(#work) .deco-underline { width: 160px; margin-top: -14px; }
+:where(#work) .deco-underline { width: 180px; margin: -16px 0 0 160px; } /* 원래 크기, 제목 오른쪽 아래 (글자와 안 겹치게) */
 
 :where(#work) .work-card { width: 100%; }
 :where(#work) .work-card img {
@@ -29,7 +29,7 @@
 /* PC/태블릿: Canva 좌표 */
 @media (min-width: 768px) {
   :where(#work) .work-title     { --x: 411.3; --y: 45.1;  --w: 543.4; --fs: 53.33; }
-  :where(#work) .deco-underline { --x: 508.4; --y: 108.5; --w: 214.2; margin: 0; }
+  :where(#work) .deco-underline { --x: 753.4; --y: 94;    --w: 273.2; margin: 0; } /* 원래 크기, 'ENCE' 밑 가운데, 글자·카드와 안 겹치게 (원래 508.4/108.5/214.2) */
 
   :where(#work) .work-card { --y: 194.6; --w: 350; --fs: 26.67; }
   :where(#work) .card-1 { --x: 76.8; }
