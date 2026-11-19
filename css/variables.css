@@ -7,18 +7,18 @@
   --bg: #fafafa;          /* 페이지 배경 */
   --ink: #000000;         /* 기본 글자 */
   --accent: #ff5055;      /* 포인트 색 (장식, 테두리) */
-  --nav-ink: #9cb960;     /* 첫 화면 상단 메뉴 글자 */
+  --nav-ink: #9cb960;     /* 상단 고정 메뉴 글자 */
 
   /* 글꼴
      맨 앞은 Canva에서 쓴 원래 글꼴이에요. 컴퓨터에 설치돼 있으면 그 글꼴로,
      없으면 뒤에 있는 비슷한 무료 웹 글꼴로 보여요. */
   --font-title: "TT Firs Neue", "Syne", "Helvetica Neue", Arial, sans-serif;
   --font-body: "TD백제", "TDBaekje", "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-nav: "Arsenica Antiqua", "Playfair Display", Georgia, serif;
   --font-mono: "Courier Prime", "Courier New", monospace;
 
   /* 간격 */
   --gutter: 16px;         /* 휴대폰 화면 양옆 여백 */
+  --header-h: 48px;       /* 휴대폰 상단 고정 메뉴 높이 */
 
   /* 움직임 */
   --ease: cubic-bezier(.2, .7, .2, 1);
