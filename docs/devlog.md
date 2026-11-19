@@ -1,6 +1,20 @@
 # 개발 기록
 
-## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects`, 커밋 4530b4a · main 반영 전)
+## ▶ 다음 세션 시작점 (2026-11-19 마무리 기준)
+현재 상태: 모든 작업 main 반영·푸시 완료 (GitHub Pages 배포). 미커밋 변경 없음 (`.claude/`만 추적 안 함).
+로컬 실행: `python -m http.server 5500` → `http://localhost:5500/`
+
+남은 일 (우선순위 순)
+1. [ ] 브라우저 직접 확인 — Work 카드(PC 1366×768 넘침·◀▶ 버튼 / 375px 탭·스와이프), About 경력 한 줄 위치
+2. [ ] 태블릿 폭(768/900/1024)에서 Skill 점선 장식이 메뉴와 겹치는지 → 겹치면 `page-skill.css` `.deco-dashes` `--x` 줄이기
+3. [ ] About 반짝이·Work 물결선 위치 미세 조정 (좌표가 추정값)
+4. [ ] 빈 화면 캡처 다시 찍기: 비밀 일기장·스마트가계부·하루 칼로리 → PNG를 `images/`에 넣으면 같은 방식으로 WebP 교체
+5. [ ] 시니톡 완성되면 임시 SVG(`images/work/sinitalk.svg`)를 실제 화면으로 교체
+6. [ ] VISUAL Netlify 사이트 이름 바꾸면 `index.html` 링크 수정
+- 정리 가능: 로컬 브랜치 `feature/work-projects`는 main에 합쳐져서 지워도 됨
+- 작업 방식: 새 작업은 브랜치에서, main 반영·푸시는 요청 시에만
+
+## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects` → main 반영·푸시 완료, 724fe19)
 
 ### 결정 사항
 - Work & Experience = 경력 카드 3개 → **만든 작품 카드 14개** (노션 「작업웹앱 정리」 기반)
@@ -14,7 +28,7 @@
     맨 앞/끝이면 그쪽 버튼 숨김, 터치 화면(`hover: none`)은 버튼 없이 손가락으로 넘김
   - 탭은 `role="tab"` + ←/→ 키 이동, 카드 줄은 `tabindex="0"`로 키보드 스크롤 가능 (`js/main.js` 아래쪽)
 - 경력은 About 제목 밑 한 줄로 옮김: `IT 개발 11년 · 컴퓨터 교육 2년 · 바리스타 7년` (`.about-career`)
-- 사진은 전부 **임시 SVG** (`images/work/*.svg`, 앱 이름 + "임시 이미지")
+- 사진: 처음엔 임시 SVG → 시니톡 빼고 13개 모두 실제 화면(WebP)으로 교체 완료 (아래 참고)
 - `css/base.css`에 `.sr-only`(화면낭독기 전용 글자) 추가
 - 같은 브랜치에 함께 들어간 미커밋 수정: About 항목 10개로 줄이고 창 85%, Skill AIX 항목 5개 추가·박스 높이 조정
 
@@ -32,19 +46,16 @@
   - 규격: 1280×800(16:10) WebP, 장당 20~60KB. `index.html`은 `width="1280" height="800"`, alt에서 "(임시 이미지)" 제거
   - 캡처: 헤드리스 Chrome + CDP(Node 내장 WebSocket, 라이브러리 없음). ClassBoardKit은 「퀴즈·게임」 템플릿,
     MyTask는 예시 할 일 6개(2개 완료), Digit은 숫자 7을 그린 상태, VISUAL은 Netlify 배지 제거 후 캡처
-  - 해당 임시 SVG 5개는 아직 `images/work/`에 남아 있음 (안 씀 → 지워도 됨)
 - [x] 앱스크립트 8개 교체 (2026-11-19): 사용자 전체화면 캡처(1920×1080) → 브라우저 상단·작업표시줄 잘라
   16:10(원본 x224 y122 폭1456) → `images/work/<이름>.webp` 1280×800. 날씨는 API 키 칸 흐림 처리
-  - 원본 PNG는 `images/work/<이름>.png`로 이름 바꿔 둠 (페이지에서 안 씀, 약 1.6MB)
 - 시니어놀이터(모임 찾기 화면)·ClassBoardKit(모둠 활동 템플릿)은 사용자 캡처로 다시 교체. ClassBoardKit은 화면 전체 폭을 써서
-  자르지 않고 폭 맞춤 + 위아래를 앱 배경색으로 채움. 원본은 `images/work/{senior-play,classboardkit}.png`
+  자르지 않고 폭 맞춤 + 위아래를 앱 배경색으로 채움
 - 시니톡은 임시 SVG 유지 (사용자 결정)
 - [ ] 다시 찍으면 좋은 것 (빈 화면): 비밀 일기장(분석 탭 전부 "기록 없음"), 스마트가계부(차트 "내역 없음"·잔액 마이너스),
   하루 칼로리(목표 비어 있음). 새로 찍은 PNG를 `images/` 에 넣으면 같은 방식으로 교체
 - [x] 안 쓰는 파일 삭제: 임시 SVG 13개(시니톡 제외), 원본 PNG 10개(커밋 전이라 저장소엔 없음), `images/work-{it,edu,cafe}.jpg`
 - [ ] VISUAL 주소(`cute-daffodil-76cbcb.netlify.app`) 사이트 이름 바꾸면 링크 수정
-- [ ] 안 쓰게 된 사진 `images/work-it.jpg`, `work-edu.jpg`, `work-cafe.jpg` 지울지 결정
-- [ ] 브라우저 확인 후 main 반영·푸시 (요청 시에만)
+- [x] main 반영·푸시 완료 (2026-11-19, 724fe19)
 
 ## 2026-11-19 · 한 페이지 스크롤 구조로 변경 (브랜치 `feature/one-page-scroll` → main 반영)
 
