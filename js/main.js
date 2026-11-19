@@ -44,3 +44,69 @@ if ('IntersectionObserver' in window) {
 } else {
   sections.forEach(showSection);
 }
+
+// =========================================
+// Work 구역: 탭 전환 + ◀▶ 버튼으로 카드 넘기기
+// =========================================
+const workTabs = [...document.querySelectorAll('#work [role="tab"]')];
+const prevBtn = document.querySelector('#work .work-prev');
+const nextBtn = document.querySelector('#work .work-next');
+
+const activeTrack = () => document.querySelector('#work .work-track:not([hidden])');
+
+// 맨 앞이면 ◀, 맨 끝이면 ▶를 숨겨요 (CSS: button:disabled)
+// 카드 폭이 소수점이라 끝까지 가도 몇 px 모자랄 수 있어서 4px 여유를 둬요.
+const EDGE = 4;
+const updateArrows = () => {
+  const track = activeTrack();
+  if (!track || !prevBtn) return;
+  const max = track.scrollWidth - track.clientWidth;
+  const atStart = track.scrollLeft <= EDGE;
+  const atEnd = track.scrollLeft >= max - EDGE;
+  // 누르던 버튼이 사라지면 키보드 위치를 카드 줄로 옮겨요
+  if ((atStart && document.activeElement === prevBtn) || (atEnd && document.activeElement === nextBtn)) track.focus();
+  prevBtn.disabled = atStart;
+  nextBtn.disabled = atEnd;
+};
+
+const selectTab = (tab) => {
+  workTabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  activeTrack().scrollLeft = 0;
+  updateArrows();
+};
+
+workTabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => selectTab(tab));
+  // 키보드 ←/→ 로 탭 이동
+  tab.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const next = workTabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + workTabs.length) % workTabs.length];
+    next.focus();
+    selectTab(next);
+  });
+});
+
+// 카드 한 장(+간격)만큼 넘기기
+const scrollCards = (dir) => {
+  const track = activeTrack();
+  const card = track.querySelector('.work-card');
+  const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+  track.scrollBy({ left: dir * (card.offsetWidth + gap) });
+};
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => scrollCards(-1));
+  nextBtn.addEventListener('click', () => scrollCards(1));
+  document.querySelectorAll('#work .work-track').forEach((t) => {
+    t.addEventListener('scroll', updateArrows, { passive: true });
+    t.addEventListener('scrollend', updateArrows);   // 부드러운 스크롤이 끝난 뒤 한 번 더 확인
+  });
+  window.addEventListener('resize', updateArrows);
+  window.addEventListener('load', updateArrows);     // 글꼴·사진이 다 뜬 뒤 폭이 바뀔 수 있어서
+  updateArrows();
+}

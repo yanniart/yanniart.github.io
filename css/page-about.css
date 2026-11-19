@@ -5,6 +5,7 @@
 /* 휴대폰 */
 :where(#about) .deco-sparkles { width: 44px; margin: 0 128px -40px 0; } /* 제목 글자 왼쪽 위 모서리에 붙게 */
 :where(#about) .deco-window { display: none; }
+:where(#about) .about-career { margin-top: -12px; color: var(--accent); text-align: center; }
 
 /* 휴대폰에서는 창 모양을 선으로 그려요 */
 :where(#about) .about-list {
@@ -33,10 +34,13 @@
   /* 반짝이를 제목 글자 왼쪽 위에 붙임 (원래 60.9/134.4) */
   :where(#about) .deco-sparkles { --x: 128;   --y: 128;   --w: 84;  margin: 0; }
   :where(#about) .about-title   { --x: 76.8;  --y: 307.5; --w: 455; --fs: 53.33; }
-  :where(#about) .deco-window   { --x: 613.4; --y: 76.8;  --w: 691.3; display: block; }
+  /* 경력 한 줄 (Work 구역에서 옮겨 옴) */
+  :where(#about) .about-career  { --x: 76.8;  --y: 380;   --w: 455; --fs: 20; margin: 0; } /* 제목과 같은 폭, 가운데 정렬 */
+  /* 항목 10개에 맞게 창 높이를 85%로 줄이고(scale), 슬라이드 세로 가운데로 내림 */
+  :where(#about) .deco-window   { --x: 613.4; --y: 116.8; --w: 691.3; display: block; scale: 1 0.85; transform-origin: top; }
 
   :where(#about) .about-list {
-    --x: 663.4; --y: 153.2; --w: 591.2; --fs: 26.67;
+    --x: 663.4; --y: 193.2; --w: 591.2; --fs: 26.67;
     border: 0;
     border-radius: 0;
     padding: 0 0 0 1.2em;
