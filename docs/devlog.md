@@ -1,8 +1,8 @@
 # 개발 기록
 
-## ▶ 다음 세션 시작점 (2026-11-19 마무리 기준)
-현재 상태: 모든 작업 main 반영·푸시 완료 (GitHub Pages 배포). 미커밋 변경 없음 (`.claude/`만 추적 안 함).
-로컬 실행: `python -m http.server 5500` → `http://localhost:5500/`
+## ▶ 다음 세션 시작점 (2026-11-22 기준)
+현재 상태: 브랜치 `feature/work-bookrera`에 BookReRa 카드 추가(확인 완료, main 미반영). 그 외는 main 배포 완료.
+로컬 실행: `python -m http.server 5500` → `http://localhost:5500/` (Claude 미리보기: `C:\vibe\.claude\launch.json`의 `yanniart-site`)
 
 남은 일 (우선순위 순)
 1. [ ] 브라우저 직접 확인 — Work 카드(PC 1366×768 넘침·◀▶ 버튼 / 375px 탭·스와이프), About 경력 한 줄 위치
@@ -12,6 +12,14 @@
 5. [ ] 시니톡 완성되면 임시 SVG(`images/work/sinitalk.svg`)를 실제 화면으로 교체
 6. [ ] VISUAL Netlify 사이트 이름 바꾸면 `index.html` 링크 수정
 - 작업 방식: 새 작업은 브랜치에서, main 반영·푸시는 요청 시에만
+
+## 2026-11-22 · Work에 BookReRa 카드 추가 (브랜치 `feature/work-bookrera`)
+- 웹·모바일 앱 탭, ClassBoardKit과 VISUAL 사이에 추가. 탭 숫자 6 → 7
+- 이미지 `images/work/bookrera.webp`: 헤드리스 Chrome `--screenshot --window-size=1280,800`으로 메인 화면 캡처 → PIL WebP(q80, 35KB)
+- 설명 끝 "공감순 정렬"은 사용자 요청으로 뺌
+- 태그: Next.js · Supabase · 카카오 도서 API · Vercel. "개발중" 배지 없음
+- 확인: PC 1366×768 · 375px 모두 카드 순서·이미지·태그 정상, 가로 넘침 없음
+- 참고: BookReRa는 아직 검색엔진 노출 차단 상태(robots). 링크로 들어가는 데는 문제 없음
 
 ## 2026-11-19 · Work 구역 전면 교체: 작품 카드 + 좌우 스크롤 (브랜치 `feature/work-projects` → main 반영·푸시 완료, 724fe19)
 
