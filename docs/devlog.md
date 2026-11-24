@@ -1,7 +1,7 @@
 # 개발 기록
 
-## ▶ 다음 세션 시작점 (2026-11-22 기준)
-현재 상태: 모든 작업 main 반영·푸시 완료 (GitHub Pages 배포, BookReRa 카드 포함). 작업 브랜치 없음.
+## ▶ 다음 세션 시작점 (2026-11-25 기준)
+현재 상태: 브랜치 `feat/work-copywriting`에 AiCopyWriting 카드 추가(미커밋·미배포). 그 외는 main 반영 완료.
 로컬 실행: `python -m http.server 5500` → `http://localhost:5500/` (Claude 미리보기: `C:\vibe\.claude\launch.json`의 `yanniart-site`)
 
 남은 일 (우선순위 순)
@@ -12,6 +12,13 @@
 5. [ ] 시니톡 완성되면 임시 SVG(`images/work/sinitalk.svg`)를 실제 화면으로 교체
 6. [ ] VISUAL Netlify 사이트 이름 바꾸면 `index.html` 링크 수정
 - 작업 방식: 새 작업은 브랜치에서, main 반영·푸시는 요청 시에만
+
+## 2026-11-25 · Work에 AiCopyWriting 카드 추가 (브랜치 `feat/work-copywriting`)
+- 웹·모바일 앱 탭, BookReRa와 VISUAL 사이에 추가. 탭 숫자 7 → 8
+- 링크 `https://copywriting-gilt.vercel.app/generate` (로그인 필요 화면 → 비로그인 방문자는 랜딩으로 이동)
+- 이미지 `images/work/copywriting.webp`: 헤드리스 Chrome(새 프로필=비로그인)으로 랜딩 화면 1280×800 캡처 → PIL WebP(q80, 48KB)
+- 태그: Next.js · Supabase · Gemini API · 토스페이먼츠
+- 확인: PC·375px 카드 순서·이미지·설명 정상, 가로 넘침 없음
 
 ## 2026-11-22 · Work에 BookReRa 카드 추가 (브랜치 `feature/work-bookrera` → main 반영·푸시, 브랜치 삭제)
 - 웹·모바일 앱 탭, ClassBoardKit과 VISUAL 사이에 추가. 탭 숫자 6 → 7
